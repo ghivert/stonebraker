@@ -103,25 +103,8 @@ const extractCommands = file => {
   }
 }
 
-const generateArgsInFunction = keys => {
-  if (keys) {
-    return `({ ${keys} })`
-  } else {
-    return '()'
-  }
-}
-
 const escapeQuotes = command => {
   return command.replace(/'/g, "\\'").replace(/"/g, '\\"')
-}
-
-const extractArgs = keys => {
-  if (keys) {
-    const args = keys.join(', ')
-    return `const { ${args} } = args`
-  } else {
-    return '// Nothing to do.'
-  }
 }
 
 const generateFunction = ({ keys, command, queries }) => {
@@ -131,7 +114,6 @@ const generateFunction = ({ keys, command, queries }) => {
 }
 
 const createFunction = (keys, command) => {
-  const arguments = generateArgsInFunction(keys)
   const queries = `${keys || []}`
   const body = generateFunction({ keys: keys || [], command, queries })
   return body
