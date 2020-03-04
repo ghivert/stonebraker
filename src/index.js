@@ -146,5 +146,3 @@ const convert = client => filePath => {
 module.exports = {
   convert,
 }
-
-convert({ query: (...args) => console.log(args) })('../test/test.sql')
