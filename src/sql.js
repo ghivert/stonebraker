@@ -107,40 +107,41 @@ const escapeQuotes = command => {
   return command.replace(/'/g, "\\'").replace(/"/g, '\\"')
 }
 
-const generateFunction = ({ keys, command, queries }) => {
+const generateFunction = ({ client, keys, command, queries }) => {
   return args => {
     const arguments = keys.map(key => args[key])
     const query = escapeQuotes(command)
-    return [query, arguments]
+    return client.query(query, arguments)
   }
 }
 
-const createFunction = (keys, command) => {
+const createFunction = (client, keys, command) => {
   const queries = `${keys || []}`
-  const body = generateFunction({ keys: keys || [], command, queries })
+  const body = generateFunction({ client, keys: keys || [], command, queries })
   return body
 }
 
-const turnToFunction = commands => {
+const turnToFunction = (client, commands) => {
   return commands.reduce((functions, command_) => {
     const { metadata, command } = command_
     const { name, keys } = metadata
-    const func = createFunction(keys, command)
+    const func = createFunction(client, keys, command)
     return { ...functions, [name]: func }
   }, {})
 }
 
-const require_ = filePath => {
+const convert = client => filePath => {
   const absolute = path.resolve(__dirname, filePath)
   const file = fs.readFileSync(absolute, 'utf8')
   const rawCommands = extractCommands(file)
   const commands = rawCommands.map(toCommand)
-  const functions = turnToFunction(commands)
+  const functions = turnToFunction(client, commands)
+  console.log(Object.values(functions).map(t => t({ id: 'test' })))
   return functions
 }
 
 module.exports = {
-  require: require_,
+  convert,
 }
 
-require_('./test.sql')
+convert({ query: (...args) => console.log(args) })('./test.sql')
