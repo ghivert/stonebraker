@@ -109,7 +109,9 @@ const escapeQuotes = command => {
 
 const generateFunction = ({ keys, command, queries }) => {
   return args => {
-    return [escapeQuotes(command), keys.map(key => args[key])]
+    const arguments = keys.map(key => args[key])
+    const query = escapeQuotes(command)
+    return [query, arguments]
   }
 }
 
