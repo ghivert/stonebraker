@@ -103,14 +103,19 @@ const extractCommands = file => {
   }
 }
 
-const escapeQuotes = command => {
-  return command.replace(/'/g, "\\'").replace(/"/g, '\\"')
+const toCorrectQuery = command => {
+  return command
+    .replace(/'/g, "\\'")
+    .replace(/"/g, '\\"')
+    .replace(/\s\s+/g, ' ')
+    .replace(/\(\s+/g, '(')
+    .replace(/\s+\)/g, ')')
 }
 
 const generateFunction = ({ client, keys, command }) => {
   return args => {
     const argsValue = keys.map(key => args[key])
-    const query = escapeQuotes(command)
+    const query = toCorrectQuery(command)
     return client.query(query, argsValue)
   }
 }
