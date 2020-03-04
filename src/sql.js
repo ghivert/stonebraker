@@ -107,17 +107,16 @@ const escapeQuotes = command => {
   return command.replace(/'/g, "\\'").replace(/"/g, '\\"')
 }
 
-const generateFunction = ({ client, keys, command, queries }) => {
+const generateFunction = ({ client, keys, command }) => {
   return args => {
-    const arguments = keys.map(key => args[key])
+    const argsValue = keys.map(key => args[key])
     const query = escapeQuotes(command)
-    return client.query(query, arguments)
+    return client.query(query, argsValue)
   }
 }
 
 const createFunction = (client, keys, command) => {
-  const queries = `${keys || []}`
-  const body = generateFunction({ client, keys: keys || [], command, queries })
+  const body = generateFunction({ client, keys: keys || [], command })
   return body
 }
 
@@ -143,4 +142,4 @@ module.exports = {
   convert,
 }
 
-convert({ query: (...args) => console.log(args) })('./test.sql')
+convert({ query: (...args) => console.log(args) })('../test/test.sql')
