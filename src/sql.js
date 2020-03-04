@@ -125,21 +125,16 @@ const extractArgs = keys => {
 }
 
 const generateFunction = ({ keys, command, queries }) => {
-  return `{
-  ${extractArgs(keys)}
-  return ['${escapeQuotes(command)}', [${queries}]]
-}`
+  return args => {
+    return [escapeQuotes(command), keys.map(key => args[key])]
+  }
 }
 
 const createFunction = (keys, command) => {
   const arguments = generateArgsInFunction(keys)
   const queries = `${keys || []}`
-  const body = generateFunction({ keys, command, queries })
-  if (keys) {
-    return new Function('args', body)
-  } else {
-    return new Function(body)
-  }
+  const body = generateFunction({ keys: keys || [], command, queries })
+  return body
 }
 
 const turnToFunction = commands => {
