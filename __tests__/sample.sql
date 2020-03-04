@@ -1,7 +1,7 @@
 -- name: create_migrations_table
 create table caravel_migrations (version text primary key);
 
--- name: is_migration_table_existing
+-- name: is_migrations_table_existing
 select exists (
   select table_name
   from information_schema.tables
