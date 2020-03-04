@@ -136,7 +136,6 @@ const convert = client => filePath => {
   const rawCommands = extractCommands(file)
   const commands = rawCommands.map(toCommand)
   const functions = turnToFunction(client, commands)
-  console.log(Object.values(functions).map(t => t({ id: 'test' })))
   return functions
 }
 
