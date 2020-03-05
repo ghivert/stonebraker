@@ -1,4 +1,4 @@
-# Stonebraker
+# Stonebraker
 
 I’m sure you already thought "It would be simpler with some SQL", or "Why the hell can’t I have syntax highlighting with Node Postgres?!". Because, like everyone, we all one time thought something like that. And, well… I think a WebStorm license is probably a little overkill for this. And that’s why Stonebraker come into place!
 
