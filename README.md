@@ -112,7 +112,7 @@ type Client<Res> = {
 }
 
 const convert: Client<Res> => Path => {
-  [string]: Argument[] => Res | () => Res
+  [string]: ({ [string]: Argument }) => Res | () => Res
 }
 
 module = {
