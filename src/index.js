@@ -114,7 +114,7 @@ const toCorrectQuery = command => {
 
 const generateFunction = ({ client, keys, command }) => {
   return args => {
-    const argsValue = keys.map(key => args[key])
+    const argsValue = keys.map(key => args[camelize(key)])
     const query = toCorrectQuery(command)
     return client.query(query, argsValue)
   }
