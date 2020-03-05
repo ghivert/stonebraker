@@ -73,19 +73,23 @@ Let’s continue with the JavaScript side.
 const main = async () => {
   // Reuse the connectClient function defined earlier.
   const client = await connectClient()
+
   // Provide the client to Stonebraker. It will generate an other function
   //   which will accept a path to an SQL file and convert its content into
   //   JavaScript.
   const converter = Stonebraker.convert(client)
+
   // Generates the functions of querying and returns an object similar to a
   //   standard Node.js/Common.js module.
   const queries = converter(path.resolve('./queries.sql'))
+
   // Now you can query the database easily!
   // The function is async because the client’s query function of node-postgres
   //   is async and Stonebraker use the functions as is.
   const { rows } = await queries.selectUserById({
     id: 'b688f9b6-0651-4382-a1b1-3145207b65e4'
   })
+  
   // Do things with the rows.
 }
 ```
