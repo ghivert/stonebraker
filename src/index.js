@@ -30,7 +30,7 @@ const toPP = command => {
 }
 
 const joinCommand = command => {
-  const comm = command.join('')
+  const comm = command.join(' ')
   if (comm.endsWith(';')) {
     return comm.slice(0, -1)
   } else {
