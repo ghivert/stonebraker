@@ -62,7 +62,7 @@ const newCommand = ({ metadata, command }) => {
   return {
     metadata: meta,
     pp: toPP(command),
-    command: convertCommand(meta, command),
+    command: toCorrectQuery(convertCommand(meta, command)),
   }
 }
 
@@ -113,8 +113,7 @@ const extractCommands = file => {
 const generateFunction = ({ client, keys, command }) => {
   return args => {
     const argsValue = keys.map(key => args[camelize(key)])
-    const query = toCorrectQuery(command)
-    return client.query(query, argsValue)
+    return client.query(command, argsValue)
   }
 }
 
