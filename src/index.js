@@ -127,6 +127,7 @@ const turnToFunction = (client, commands) => {
     const { metadata, command } = command_
     const { name, keys } = metadata
     const func = createFunction(client, keys, command)
+    func.command = () => command
     return { ...functions, [name]: func }
   }, {})
 }
