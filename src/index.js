@@ -50,6 +50,13 @@ const convertCommand = ({ keys }, command) => {
   }
 }
 
+const toCorrectQuery = command => {
+  return command
+    .replace(/\s\s+/g, ' ')
+    .replace(/\(\s+/g, '(')
+    .replace(/\s+\)/g, ')')
+}
+
 const newCommand = ({ metadata, command }) => {
   const meta = convertMetadata(metadata)
   return {
@@ -101,15 +108,6 @@ const extractCommands = file => {
   } else {
     return [...commands, lines]
   }
-}
-
-const toCorrectQuery = command => {
-  return command
-    .replace(/'/g, "\\'")
-    .replace(/"/g, '\\"')
-    .replace(/\s\s+/g, ' ')
-    .replace(/\(\s+/g, '(')
-    .replace(/\s+\)/g, ')')
 }
 
 const generateFunction = ({ client, keys, command }) => {
