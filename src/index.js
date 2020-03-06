@@ -124,9 +124,10 @@ const createFunction = (client, keys, command) => {
 
 const turnToFunction = (client, commands) => {
   return commands.reduce((functions, command_) => {
-    const { metadata, command } = command_
+    const { metadata, command, pp } = command_
     const { name, keys } = metadata
     const func = createFunction(client, keys, command)
+    func.toString = () => pp
     func.command = () => command
     return { ...functions, [name]: func }
   }, {})
