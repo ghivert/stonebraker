@@ -13,7 +13,7 @@ const createTableQuery =
   'create table caravel_migrations (version text primary key)'
 const migrationsTableExistingQuery = [
   'select exists (select table_name from information_schema.tables',
-  "where table_name = \\'caravel_migrations\\')",
+  "where table_name = 'caravel_migrations')",
 ].join(' ')
 const selectAllQuery = 'select * from caravel_migrations order by version'
 const selectQuery = 'select * from caravel_migrations where id = $1'
