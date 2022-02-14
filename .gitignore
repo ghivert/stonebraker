@@ -1,6 +1,9 @@
 # Node stuff
 node_modules/
 
+# TypeScript stuff
+dist/
+
 # OS Stuff
 .DS_Store
 Thumbs.db

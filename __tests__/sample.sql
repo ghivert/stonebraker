@@ -14,3 +14,7 @@ select * from caravel_migrations order by version;
 -- name: select_by_id
 -- keys: id
 select * from caravel_migrations where id = $id;
+
+-- name: select_by_id_and_name
+-- keys: id, name
+select * from caravel_migrations where id = $id and name = $name;
